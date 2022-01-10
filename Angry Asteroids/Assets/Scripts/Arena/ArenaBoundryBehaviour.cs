@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ArenaBoundryBehaviour : MonoBehaviour
 {
-    public Transform ArenaTransform;
-
     private float _halfArenaWidth;
     private float _halfArenaHeight;
 
     public void Start()
     {
-        _halfArenaWidth = ArenaTransform.localScale.x / 2;
-        _halfArenaHeight = ArenaTransform.localScale.y / 2;
+        var arenaSize = ArenaBehaviour.GetSize();
+
+        _halfArenaWidth = arenaSize.x / 2;
+        _halfArenaHeight = arenaSize.y / 2;
     }
 
     public void Update()
