@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,13 +6,13 @@ public class GameManager : MonoBehaviour
     private GameObject _player;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _player = Instantiate(PlayerPrefab);
         var playerShootingBehaviour = _player.GetComponent<ShootingBehaviour>();
         playerShootingBehaviour.ShootingStrategy = new PlayerShootingStrategy();
 
-        BulletBuilder.Initialize();
+        BulletBuilder.Instance.Initialize();
     }
 
 }

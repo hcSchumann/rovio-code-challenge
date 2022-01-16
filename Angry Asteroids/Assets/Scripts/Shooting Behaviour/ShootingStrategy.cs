@@ -2,10 +2,16 @@
 
 public abstract class ShootingStrategy
 {
+    protected BulletType BulletType = BulletType.basic;
     protected float ShootingCooldownTimeInSec = 1f;
     private float _lastShootTime;
 
     public abstract Transform AcquireTarget();
+    
+    public void SetBulletType(BulletType newType)
+    {
+        BulletType = newType;
+    }
     
     public abstract bool CanShoot(Transform self, Transform target);
 

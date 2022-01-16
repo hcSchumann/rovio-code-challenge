@@ -1,15 +1,30 @@
 using UnityEngine;
 
-public static class BulletBuilder
+public class BulletBuilder
 {
-    private static BulletPool bulletPool;
+    private BulletPool bulletPool;
 
-    public static void Initialize()
-    {
-        bulletPool = new BulletPool();
+    private static BulletBuilder _instance;
+    public static BulletBuilder Instance { 
+        get 
+        {
+            if (_instance == null)
+            {
+                _instance = new BulletBuilder();
+            }
+
+            return _instance;
+        } 
     }
 
-    public static void BuildBullet(BulletType bulletType, Vector3 position, Vector3 direction, bool shooterIsPlayer = false)
+    private BulletBuilder() { }
+
+    public void Initialize()
+    {
+        Instance.bulletPool = new BulletPool();
+    }
+
+    public void BuildBullet(BulletType bulletType, Vector3 position, Vector3 direction, bool shooterIsPlayer = false)
     {
         switch(bulletType)
         {
@@ -23,9 +38,9 @@ public static class BulletBuilder
         }
     }
 
-    private static void BuildBasicBullet(Vector3 position, Vector3 direction, bool shooterIsPlayer)
+    private void BuildBasicBullet(Vector3 position, Vector3 direction, bool shooterIsPlayer)
     {
-        var bulletObject = bulletPool.GetNewBullet();
+        var bulletObject = Instance.bulletPool.GetNewBullet();
         var bulletBehaviour = bulletObject.GetComponent<BulletBehaviour>();
 
         bulletObject.transform.position = position;
@@ -41,12 +56,12 @@ public static class BulletBuilder
         }
     }
 
-    private static void BuildBombBullet(Vector3 position, Vector3 direction, bool shooterIsPlayer)
+    private void BuildBombBullet(Vector3 position, Vector3 direction, bool shooterIsPlayer)
     {
 
     }
 
-    private static void BuildSpreadBullet(Vector3 position, Vector3 direction, bool shooterIsPlayer)
+    private void BuildSpreadBullet(Vector3 position, Vector3 direction, bool shooterIsPlayer)
     {
 
     }
