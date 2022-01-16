@@ -6,16 +6,14 @@ public class ShootingBehaviour : MonoBehaviour
     public ShootingStrategy ShootingStrategy;
     private Transform _target;
 
-    public void Awake()
-    {
-        if(ShootingStrategy == null)
-        {
-            ShootingStrategy = new PlayerShootingStrategy();
-        }
-    }
-
     public void Start()
     {
+        if (ShootingStrategy == null)
+        {
+            this.enabled = false;
+            return;
+        }
+
         _target = ShootingStrategy.AcquireTarget();
     }
 

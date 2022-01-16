@@ -2,6 +2,13 @@ using UnityEngine;
 
 public static class BulletBuilder
 {
+    private static BulletPool bulletPool;
+
+    public static void Initialize()
+    {
+        bulletPool = new BulletPool();
+    }
+
     public static void BuildBullet(BulletType bulletType, Vector3 position, Vector3 direction, bool shooterIsPlayer = false)
     {
         switch(bulletType)
@@ -18,7 +25,7 @@ public static class BulletBuilder
 
     private static void BuildBasicBullet(Vector3 position, Vector3 direction, bool shooterIsPlayer)
     {
-        var bulletObject = GameObject.Instantiate(Resources.Load("BulletPrefab")) as GameObject;
+        var bulletObject = bulletPool.GetNewBullet();
         var bulletBehaviour = bulletObject.GetComponent<BulletBehaviour>();
 
         bulletObject.transform.position = position;

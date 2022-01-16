@@ -1,10 +1,11 @@
 using UnityEngine;
-
+using System;
 public class BulletBehaviour : MonoBehaviour
 {
     public CircleCollider2D Collider;
     public GameObject VisualObject;
     public Vector3 Direction;
+    public Action<GameObject> OnBulletDie;
 
     public float size;
     public float Speed = 10;
@@ -24,7 +25,7 @@ public class BulletBehaviour : MonoBehaviour
 
         if(LifeSpam <= 0)
         {
-            Destroy(gameObject);
+            Die();
             return;
         }
 
@@ -34,7 +35,17 @@ public class BulletBehaviour : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Bullet") return;
+        Die();
+    }
 
-        Destroy(gameObject);
+    private void Die()
+    {
+        if(OnBulletDie == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        OnBulletDie.Invoke(gameObject);
     }
 }
