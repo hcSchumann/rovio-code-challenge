@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     public float PlayerMovementSpeed = 10f;
 
+    public bool IsShooting { get; private set; }
     private bool _moveForward;
     private Camera _mainCamera;
 
@@ -46,6 +47,22 @@ public class PlayerController : MonoBehaviour
             var newRight = new Vector3(pointerToPlayerVector.x, pointerToPlayerVector.y, 0);
             
             transform.right = newRight.normalized;
+        }
+    }
+
+    public void OnShoot(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            IsShooting = true;
+        }
+        else if (context.performed)
+        {
+            IsShooting = true;
+        }
+        else if (context.canceled)
+        {
+            IsShooting = false;
         }
     }
 }

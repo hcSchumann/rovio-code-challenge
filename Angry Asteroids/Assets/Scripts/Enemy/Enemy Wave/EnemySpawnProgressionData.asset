@@ -22,6 +22,11 @@ MonoBehaviour:
       EasyEnemies: 1
       MediumEnemies: 0
       HardEnemies: 0
+  - Wave: 3
+    EnemyWaveData:
+      EasyEnemies: 2
+      MediumEnemies: 2
+      HardEnemies: 1
   - Wave: 10
     EnemyWaveData:
       EasyEnemies: 0

@@ -38,8 +38,15 @@ public class BulletBuilder
                 BuildBasicBullet(position, direction, shooterIsPlayer);
                 break;
             case BulletType.bomb:
+                BuildBombBullet(position, direction, shooterIsPlayer);
                 break;
             case BulletType.spread:
+                BuildSpreadBullet(position, direction, shooterIsPlayer);
+                var rotationQuat = new Quaternion();
+                rotationQuat.eulerAngles = new Vector3(0, 0, 30);
+                BuildSpreadBullet(position, rotationQuat * direction, shooterIsPlayer);
+                rotationQuat.eulerAngles = new Vector3(0, 0, -30);
+                BuildSpreadBullet(position, rotationQuat * direction, shooterIsPlayer);
                 break;
         }
     }
@@ -50,10 +57,13 @@ public class BulletBuilder
         var bulletBehaviour = bulletObject.GetComponent<BulletBehaviour>();
 
         bulletObject.transform.position = position;
+        bulletObject.layer = LayerMask.NameToLayer("Player");
+        bulletBehaviour.VisualObject.GetComponent<SpriteRenderer>().color = Color.red;
         bulletBehaviour.Direction = direction;
-        bulletBehaviour.LifeSpam = 5;
+        bulletBehaviour.Size = 10;
+        bulletBehaviour.LifeSpam = 2;
         bulletBehaviour.Power = 5;
-        bulletBehaviour.Speed = 500;
+        bulletBehaviour.Speed = 700;
 
         if(shooterIsPlayer)
         {
@@ -64,11 +74,43 @@ public class BulletBuilder
 
     private void BuildBombBullet(Vector3 position, Vector3 direction, bool shooterIsPlayer)
     {
+        var bulletObject = Instance._bulletPool.GetNewBullet();
+        var bulletBehaviour = bulletObject.GetComponent<BulletBehaviour>();
 
+        bulletObject.transform.position = position;
+        bulletObject.layer = LayerMask.NameToLayer("Player");
+        bulletBehaviour.VisualObject.GetComponent<SpriteRenderer>().color = Color.black;
+        bulletBehaviour.Direction = direction;
+        bulletBehaviour.Size = 40;
+        bulletBehaviour.LifeSpam = 5;
+        bulletBehaviour.Power = 25;
+        bulletBehaviour.Speed = 300;
+
+        if (shooterIsPlayer)
+        {
+            bulletObject.layer = LayerMask.NameToLayer("Enemy");
+            bulletBehaviour.VisualObject.GetComponent<SpriteRenderer>().color = Color.green;
+        }
     }
 
     private void BuildSpreadBullet(Vector3 position, Vector3 direction, bool shooterIsPlayer)
     {
+        var bulletObject = Instance._bulletPool.GetNewBullet();
+        var bulletBehaviour = bulletObject.GetComponent<BulletBehaviour>();
 
+        bulletObject.transform.position = position;
+        bulletObject.layer = LayerMask.NameToLayer("Player");
+        bulletBehaviour.VisualObject.GetComponent<SpriteRenderer>().color = Color.blue;
+        bulletBehaviour.Direction = direction;
+        bulletBehaviour.Size = 5;
+        bulletBehaviour.LifeSpam = 5;
+        bulletBehaviour.Power = 5;
+        bulletBehaviour.Speed = 700;
+
+        if (shooterIsPlayer)
+        {
+            bulletObject.layer = LayerMask.NameToLayer("Enemy");
+            bulletBehaviour.VisualObject.GetComponent<SpriteRenderer>().color = Color.green;
+        }
     }
 }

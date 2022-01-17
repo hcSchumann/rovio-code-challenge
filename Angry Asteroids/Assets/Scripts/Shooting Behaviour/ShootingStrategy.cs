@@ -2,10 +2,11 @@
 
 public abstract class ShootingStrategy
 {
+    protected virtual float ShootingCooldownTimeInSec { get { return 1f; }}
+
     protected BulletType BulletType = BulletType.basic;
     protected float BulletSpawnOffset = 10f;
 
-    protected float ShootingCooldownTimeInSec = 1f;
     private float _lastShootTime;
 
     public abstract Transform AcquireTarget();
@@ -25,9 +26,14 @@ public abstract class ShootingStrategy
 
     protected abstract void ShootingImplementation(Transform self, Transform target);
 
+    protected bool HasShootingCooldown(float cooldown)
+    {
+        if (Time.time >= _lastShootTime + cooldown) return true;
+        return false;
+    }
+
     protected bool HasShootingCooldown()
     {
-        if (Time.time >= _lastShootTime + ShootingCooldownTimeInSec) return true;
-        return false;
+        return HasShootingCooldown(ShootingCooldownTimeInSec);
     }
 }

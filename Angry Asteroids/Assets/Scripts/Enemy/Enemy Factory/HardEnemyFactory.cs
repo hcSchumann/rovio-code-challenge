@@ -7,7 +7,9 @@ internal class HardEnemyFactory : EnemyFactory
         var enemyObject = GameObject.Instantiate(EnemyPrefab);
         enemyObject.name = "HardEnemy";
         enemyObject.GetComponent<Health>().MaxHealth = 50;
-        enemyObject.GetComponent<ShootingBehaviour>().ShootingStrategy = new ForwardShootingStrategy();
+        var shootingStrategy = new ForwardShootingStrategy();
+        shootingStrategy.SetBulletType(BulletType.bomb);
+        enemyObject.GetComponent<ShootingBehaviour>().ShootingStrategy = shootingStrategy;
         enemyObject.GetComponent<EnemyVisual>().SetEnemyColor(Color.black);
 
         return enemyObject;

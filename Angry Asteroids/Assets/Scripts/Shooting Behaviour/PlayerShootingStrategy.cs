@@ -3,7 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerShootingStrategy : ShootingStrategy
 {
-    new protected float ShootingCooldownTimeInSec = 0.1f;
+    protected override float ShootingCooldownTimeInSec { get { return 0.5f; }}
+    public PlayerController PlayerController;
 
     public override Transform AcquireTarget() 
     {
@@ -12,9 +13,10 @@ public class PlayerShootingStrategy : ShootingStrategy
 
     public override bool CanShoot(Transform _, Transform __)
     {
-        if (!HasShootingCooldown()) return false;
+        if (!HasShootingCooldown(ShootingCooldownTimeInSec)) 
+            return false;
 
-        return Mouse.current.leftButton.isPressed;
+        return PlayerController.IsShooting;
     }
 
     protected override void ShootingImplementation(Transform self, Transform _)

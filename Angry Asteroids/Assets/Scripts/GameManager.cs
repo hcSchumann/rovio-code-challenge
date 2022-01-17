@@ -13,7 +13,9 @@ public class GameManager : MonoBehaviour
     {
         _player = Instantiate(PlayerPrefab);
         var playerShootingBehaviour = _player.GetComponent<ShootingBehaviour>();
-        playerShootingBehaviour.ShootingStrategy = new PlayerShootingStrategy();
+        var playerShootingStrategy = new PlayerShootingStrategy();
+        playerShootingStrategy.PlayerController = _player.GetComponent<PlayerController>();
+        playerShootingBehaviour.ShootingStrategy = playerShootingStrategy;
 
         BulletBuilder.Instance.Initialize();
 
