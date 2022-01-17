@@ -35,6 +35,7 @@ public class BulletBehaviour : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Bullet") return;
+        other.gameObject.GetComponent<Health>().DecreaseHealth(Power);
         Die();
     }
 

@@ -265,7 +265,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.5297203, g: 0.42301533, b: 0.9245283, a: 1}
+  m_Color: {r: 0.2620086, g: 0.24452654, b: 0.3301887, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 2426648086931215871, guid: 006002da40e1d8342b4cb3740eee308a, type: 3}
+  WaveProgression: {fileID: 11400000, guid: 1d935ce9892e10d4ba85601dd3131acd, type: 2}
 --- !u!4 &1645161097
 Transform:
   m_ObjectHideFlags: 0

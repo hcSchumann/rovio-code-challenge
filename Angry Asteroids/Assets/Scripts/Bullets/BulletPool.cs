@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class BulletPool
 {
     private GameObject _bulletPrefab;
     private GameObject _bulletPoolParentObject;
     private GameObject[] _bulletPool;
+    private List<GameObject> _trackedBullets;
     private int poolCapacity = 300;
 
     private int _availableBulletsOnPool = 0;
@@ -13,8 +15,21 @@ public class BulletPool
     {
         _bulletPrefab = Resources.Load("BulletPrefab") as GameObject;
         _bulletPool = new GameObject[poolCapacity];
+        _trackedBullets = new List<GameObject>();
         _bulletPoolParentObject = new GameObject();
         _bulletPoolParentObject.name = "BulletPool";
+    }
+
+    public void Reset()
+    {
+        _availableBulletsOnPool = 0;
+        _bulletPool = new GameObject[poolCapacity];
+        foreach (var bullet in _trackedBullets)
+        {
+            bullet.GetComponent<BulletBehaviour>().OnBulletDie -= OnTrackedBulletDied;
+            GameObject.Destroy(bullet);
+        }
+        _trackedBullets.Clear();
     }
 
     public GameObject GetNewBullet()
@@ -25,12 +40,10 @@ public class BulletPool
         }
 
         var newBulletObject = GameObject.Instantiate(_bulletPrefab);
-        newBulletObject.transform.parent = _bulletPoolParentObject.transform;
+        _trackedBullets.Add(newBulletObject);
 
-        if (_availableBulletsOnPool < poolCapacity)
-        {
-            newBulletObject.GetComponent<BulletBehaviour>().OnBulletDie += OnTrackedBulletDied;
-        }
+        newBulletObject.transform.parent = _bulletPoolParentObject.transform;
+        newBulletObject.GetComponent<BulletBehaviour>().OnBulletDie += OnTrackedBulletDied;
 
         return newBulletObject;
     }

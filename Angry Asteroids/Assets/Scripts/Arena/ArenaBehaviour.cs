@@ -10,6 +10,13 @@ public class ArenaBehaviour : MonoBehaviour
         return new Vector2(Width, Height);
     }
 
+    public static Vector2 GetRandomPositionInside()
+    {
+        var randX = Random.Range(0, Width) - Width/2;
+        var randY = Random.Range(0, Height) - Height/2;
+        return new Vector2(randX, randY);
+    }
+
     public void Start()
     {
         transform.localScale = new Vector3(Width, Height, 0);

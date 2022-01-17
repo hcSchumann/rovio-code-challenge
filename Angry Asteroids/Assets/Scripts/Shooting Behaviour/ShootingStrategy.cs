@@ -3,6 +3,8 @@
 public abstract class ShootingStrategy
 {
     protected BulletType BulletType = BulletType.basic;
+    protected float BulletSpawnOffset = 10f;
+
     protected float ShootingCooldownTimeInSec = 1f;
     private float _lastShootTime;
 

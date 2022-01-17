@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class BulletBuilder
 {
-    private BulletPool bulletPool;
+    private BulletPool _bulletPool;
 
     private static BulletBuilder _instance;
+
     public static BulletBuilder Instance { 
         get 
         {
@@ -21,7 +22,12 @@ public class BulletBuilder
 
     public void Initialize()
     {
-        Instance.bulletPool = new BulletPool();
+        Instance._bulletPool = new BulletPool();
+    }
+
+    public void ClearBullets()
+    {
+        Instance._bulletPool.Reset();
     }
 
     public void BuildBullet(BulletType bulletType, Vector3 position, Vector3 direction, bool shooterIsPlayer = false)
@@ -40,18 +46,18 @@ public class BulletBuilder
 
     private void BuildBasicBullet(Vector3 position, Vector3 direction, bool shooterIsPlayer)
     {
-        var bulletObject = Instance.bulletPool.GetNewBullet();
+        var bulletObject = Instance._bulletPool.GetNewBullet();
         var bulletBehaviour = bulletObject.GetComponent<BulletBehaviour>();
 
         bulletObject.transform.position = position;
         bulletBehaviour.Direction = direction;
-        bulletBehaviour.LifeSpam = 10;
+        bulletBehaviour.LifeSpam = 5;
         bulletBehaviour.Power = 5;
-        bulletBehaviour.Speed = 200;
+        bulletBehaviour.Speed = 500;
 
         if(shooterIsPlayer)
         {
-            bulletObject.layer = LayerMask.NameToLayer("Player");
+            bulletObject.layer = LayerMask.NameToLayer("Enemy");
             bulletBehaviour.VisualObject.GetComponent<SpriteRenderer>().color = Color.green;
         }
     }

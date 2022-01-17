@@ -3,8 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerShootingStrategy : ShootingStrategy
 {
-    new protected float ShootingCooldownTimeInSec = 0.5f;
-    private float _bulletSpawnOffset = 10f;
+    new protected float ShootingCooldownTimeInSec = 0.1f;
 
     public override Transform AcquireTarget() 
     {
@@ -20,7 +19,7 @@ public class PlayerShootingStrategy : ShootingStrategy
 
     protected override void ShootingImplementation(Transform self, Transform _)
     {
-        var spawnPosition = self.position + (self.right * _bulletSpawnOffset);
+        var spawnPosition = self.position + (self.right * BulletSpawnOffset);
         BulletBuilder.Instance.BuildBullet(BulletType, spawnPosition, self.right, true);
     }
 }
