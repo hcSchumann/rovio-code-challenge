@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ArenaBehaviour : MonoBehaviour
 {
-    public static float Width = 1920;
+    public static float Width = 2060;
     public static float Height = 1080;
 
     public static Vector2 GetSize()

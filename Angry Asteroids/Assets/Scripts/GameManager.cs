@@ -3,25 +3,34 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject PlayerPrefab;
-    private GameObject _player;
-
     public EnemeyWaveSpawnProgression WaveProgression;
+    public UIWaveCounterBehaviour UIWaveCounterBehaviour;
+
+    private GameObject _player;
     private EnemyWaveSpawner _enemyWaveSpawner;
-    private int _currentWave = 1;
+    private int _currentWave = 0;
 
     private void Start()
     {
-        _player = Instantiate(PlayerPrefab);
-        var playerShootingBehaviour = _player.GetComponent<ShootingBehaviour>();
-        var playerShootingStrategy = new PlayerShootingStrategy();
-        playerShootingStrategy.PlayerController = _player.GetComponent<PlayerController>();
-        playerShootingBehaviour.ShootingStrategy = playerShootingStrategy;
-
+        InstantiatePlayer();
         BulletBuilder.Instance.Initialize();
 
         _enemyWaveSpawner = new EnemyWaveSpawner(WaveProgression);
-        _enemyWaveSpawner.SpawnEnemyWave(_currentWave);
         _enemyWaveSpawner.OnWaveCleared += StartNewWave;
+        StartNewWave();
+    }
+
+    private void InstantiatePlayer()
+    {
+        _player = Instantiate(PlayerPrefab);
+        _player.GetComponent<Health>().OnDie += PlayerDied;
+
+        var playerController = _player.GetComponent<PlayerController>();
+        playerController.MainCamera = Camera.main;
+        var playerShootingBehaviour = _player.GetComponent<ShootingBehaviour>();
+        var playerShootingStrategy = new PlayerShootingStrategy();
+        playerShootingStrategy.PlayerController = playerController;
+        playerShootingBehaviour.ShootingStrategy = playerShootingStrategy;
     }
 
     private void StartNewWave()
@@ -30,5 +39,12 @@ public class GameManager : MonoBehaviour
         _enemyWaveSpawner.SpawnEnemyWave(++_currentWave);
         _player.transform.position = Vector3.zero;
         _player.GetComponent<Health>().RestoreHealth();
+        UIWaveCounterBehaviour.UpdateWaveCounterText(_currentWave);
+    }
+
+    private void PlayerDied()
+    {
+        BulletBuilder.Instance.ClearBullets();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MenuScene");
     }
 }

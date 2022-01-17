@@ -3,16 +3,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float PlayerMovementSpeed = 10f;
+    public float PlayerMovementSpeed = 100f;
+    public Camera MainCamera;
 
     public bool IsShooting { get; private set; }
     private bool _moveForward;
-    private Camera _mainCamera;
-
-    private void Start()
-    {
-        _mainCamera = Camera.main;
-    }
 
     void Update()
     {
@@ -39,7 +34,7 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
         {
             var pointerPosition = context.ReadValue<Vector2>();
-            var pointerWorldPosition = _mainCamera.ScreenToWorldPoint(new Vector3(pointerPosition.x, pointerPosition.y, 0));
+            var pointerWorldPosition = MainCamera.ScreenToWorldPoint(new Vector3(pointerPosition.x, pointerPosition.y, 0));
             var pointerWorld2DPosition = new Vector2(pointerWorldPosition.x, pointerWorldPosition.y);
             
             var playere2DPosition = new Vector2(transform.position.x, transform.position.y);
