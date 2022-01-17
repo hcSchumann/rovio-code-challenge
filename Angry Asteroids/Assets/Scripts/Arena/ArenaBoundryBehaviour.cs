@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class ArenaBoundryBehaviour : MonoBehaviour
 {
+    public Action OnExitArenaBounds;
     private float _halfArenaWidth;
     private float _halfArenaHeight;
 
@@ -39,6 +39,7 @@ public class ArenaBoundryBehaviour : MonoBehaviour
 
         if (horizontalOffset != 0 || verticalOffset != 0)
         {
+            OnExitArenaBounds?.Invoke();
             transform.position = transform.position + new Vector3(horizontalOffset, verticalOffset, 0);
         }
     }

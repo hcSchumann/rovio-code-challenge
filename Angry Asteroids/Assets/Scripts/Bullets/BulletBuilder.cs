@@ -60,7 +60,7 @@ public class BulletBuilder
         bulletObject.layer = LayerMask.NameToLayer("Player");
         bulletBehaviour.VisualObject.GetComponent<SpriteRenderer>().color = Color.red;
         bulletBehaviour.Direction = direction;
-        bulletBehaviour.Size = 10;
+        bulletBehaviour.Size = 15;
         bulletBehaviour.LifeSpam = 2;
         bulletBehaviour.Power = 5;
         bulletBehaviour.Speed = 700;
@@ -81,10 +81,10 @@ public class BulletBuilder
         bulletObject.layer = LayerMask.NameToLayer("Player");
         bulletBehaviour.VisualObject.GetComponent<SpriteRenderer>().color = Color.black;
         bulletBehaviour.Direction = direction;
-        bulletBehaviour.Size = 40;
+        bulletBehaviour.Size = 50;
         bulletBehaviour.LifeSpam = 5;
         bulletBehaviour.Power = 25;
-        bulletBehaviour.Speed = 300;
+        bulletBehaviour.Speed = 100;
 
         if (shooterIsPlayer)
         {
@@ -102,7 +102,7 @@ public class BulletBuilder
         bulletObject.layer = LayerMask.NameToLayer("Player");
         bulletBehaviour.VisualObject.GetComponent<SpriteRenderer>().color = Color.blue;
         bulletBehaviour.Direction = direction;
-        bulletBehaviour.Size = 5;
+        bulletBehaviour.Size = 10;
         bulletBehaviour.LifeSpam = 5;
         bulletBehaviour.Power = 5;
         bulletBehaviour.Speed = 700;

@@ -60,8 +60,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Collider: {fileID: 1256663454895880535}
   VisualObject: {fileID: 1256663455693915141}
+  ArenaBoundryBehaviour: {fileID: 1256663454895880530}
   Direction: {x: 0, y: 0, z: 0}
-  size: 10
   Speed: 100
   Power: 5
   LifeSpam: 10

@@ -12,23 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbfc9d7dcf2da844785f4185874f082b, type: 3}
   m_Name: EnemySpawnProgressionData
   m_EditorClassIdentifier: 
-  EasyEnemiesMultiplier: 2
-  MediumEnemiesMultiplier: 0.5
+  EasyEnemiesMultiplier: 1
+  MediumEnemiesMultiplier: 0.4
   HardEnemiesMultiplier: 0.2
   EnemiesLimit: 30
   EnemyWaveOverrides:
   - Wave: 1
     EnemyWaveData:
-      EasyEnemies: 1
+      EasyEnemies: 2
       MediumEnemies: 0
+      HardEnemies: 0
+  - Wave: 2
+    EnemyWaveData:
+      EasyEnemies: 1
+      MediumEnemies: 1
       HardEnemies: 0
   - Wave: 3
     EnemyWaveData:
       EasyEnemies: 2
-      MediumEnemies: 2
+      MediumEnemies: 0
       HardEnemies: 1
   - Wave: 10
     EnemyWaveData:
       EasyEnemies: 0
       MediumEnemies: 0
-      HardEnemies: 10
+      HardEnemies: 7

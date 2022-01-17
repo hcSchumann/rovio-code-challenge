@@ -37,8 +37,8 @@ public class PlayerController : MonoBehaviour
             var pointerWorldPosition = MainCamera.ScreenToWorldPoint(new Vector3(pointerPosition.x, pointerPosition.y, 0));
             var pointerWorld2DPosition = new Vector2(pointerWorldPosition.x, pointerWorldPosition.y);
             
-            var playere2DPosition = new Vector2(transform.position.x, transform.position.y);
-            var pointerToPlayerVector = pointerWorld2DPosition - playere2DPosition;
+            var player2DPosition = new Vector2(transform.position.x, transform.position.y);
+            var pointerToPlayerVector = pointerWorld2DPosition - player2DPosition;
             var newRight = new Vector3(pointerToPlayerVector.x, pointerToPlayerVector.y, 0);
             
             transform.right = newRight.normalized;

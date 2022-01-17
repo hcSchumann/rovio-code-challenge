@@ -4,8 +4,11 @@ public class BulletBehaviour : MonoBehaviour
 {
     public CircleCollider2D Collider;
     public GameObject VisualObject;
+    public ArenaBoundryBehaviour ArenaBoundryBehaviour;
     public Vector3 Direction;
     public Action<GameObject> OnBulletDie;
+
+    public SpriteRenderer VisualRenderer;
 
     public float Size 
     { 
@@ -23,6 +26,8 @@ public class BulletBehaviour : MonoBehaviour
     private float _size = 5;
     public void Start()
     {
+        VisualRenderer = VisualObject.GetComponent<SpriteRenderer>();
+        ArenaBoundryBehaviour.OnExitArenaBounds += Die;
         UpdateSize();
     }
 
@@ -35,6 +40,14 @@ public class BulletBehaviour : MonoBehaviour
         {
             Die();
             return;
+        }
+        else if(LifeSpam <= 1f)
+        {
+            VisualRenderer.color = new Color(
+                VisualRenderer.color.r,
+                VisualRenderer.color.g,
+                VisualRenderer.color.b,
+                Mathf.Min(LifeSpam, 0.3f));
         }
 
         transform.position += Direction * deltaTime * Speed;
